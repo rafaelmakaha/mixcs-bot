@@ -4,6 +4,28 @@ import datetime
 
 bot = commands.Bot(command_prefix=">", description="This is a helper bot!")
 
+options = {
+  '00' : 'Unranked',
+  '01' : 'Prata 1',
+  '02' : 'Prata 2',
+  '03' : 'Prata 3',
+  '04' : 'Prata 4',
+  '05' : 'Prata elite',
+  '06' : 'Prata elite mestre',
+  '07' : 'Ouro 1',
+  '08' : 'Ouro 2',
+  '09' : 'Ouro 3',
+  '10' : 'Ouro 4',
+  '11' : 'AK 1',
+  '12' : 'AK 2',
+  '13' : 'AK X',
+  '14' : 'Xerife',
+  '15' : 'Águia 1',
+  '16' : 'Águia 2',
+  '17' : 'Supremo',
+  '18' : 'Global',
+}
+
 @bot.command()
 async def ping(ctx):
     await ctx.send("pong")
@@ -21,8 +43,15 @@ async def status(ctx):
     embed.add_field(name="Debug", value=discord.ClientUser.avatar)
     await ctx.send(embed=embed)
 
-
+@bot.command()
+async def patentes(ctx):
+    content = []
+    content.append('Valor  :  Patente')
+    for item in list(options.items()):
+        content.append(str(str(item[0] + '  :  ' + str(item[1]))))
     
+    embed = discord.Embed(title='Patentes', description=('\n'.join(content)))
+    await ctx.send(embed=embed)   
 
 # Events
 @bot.event
