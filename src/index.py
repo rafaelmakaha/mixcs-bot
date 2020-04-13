@@ -65,7 +65,10 @@ async def add(ctx, name, weight: int):
         return await ctx.send("Valor fora dos pesos das patentes.")
 
     if server.id in players:
-        players[server.id].append((name,weight))
+        if len(players[server.id]) < 10:
+            players[server.id].append((name,weight))
+        else:
+            return await ctx.send("Não há espaço para mais jogadores.")
     else:
         players[server.id] = [(name,weight)]
     
