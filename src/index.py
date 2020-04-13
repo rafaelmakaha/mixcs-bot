@@ -79,6 +79,9 @@ async def queue(ctx):
     else:
         await ctx.send("Não há nenhum jogador na fila.")
 
+
+            
+
 # Events
 @bot.event
 async def on_ready():
