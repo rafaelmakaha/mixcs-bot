@@ -57,8 +57,11 @@ async def patentes(ctx):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def add(ctx, name, weight):
+async def add(ctx, name, weight: int):
     server = ctx.guild
+
+    if weight < 0 or weight > 18:
+        return await ctx.send("Valor fora dos pesos das patentes.")
 
     if server.id in players:
         players[server.id].append((name,weight))
