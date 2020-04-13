@@ -94,6 +94,16 @@ async def remove(ctx, pos):
     else:
         await ctx.send("Não há jogadores na fila.")
 
+@bot.command()
+async def clear(ctx):
+    server = ctx.guild
+
+    if server.id in players:
+        players[server.id] = []
+        await ctx.send("Todos os jogadores foram removidos.")
+    else:
+        await ctx.send("Não há jogadores na fila.")
+
 # Events
 @bot.event
 async def on_ready():
