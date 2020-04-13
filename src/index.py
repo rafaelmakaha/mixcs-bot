@@ -81,17 +81,17 @@ async def queue(ctx):
 
     if server.id in players and len(players[server.id]) > 0:
         for index,name in enumerate(players[server.id]):
-            response.append("{}. {}".format(index,name[0]))
+            response.append("{}. {}".format(index+1,name[0]))
 
         await ctx.send('\n'.join(response))
     else:
         await ctx.send("Não há nenhum jogador na fila.")
 
 @bot.command()
-async def remove(ctx, pos):
+async def remove(ctx, pos: int):
     server = ctx.guild
     response = ""
-
+    pos = pos - 1
     if server.id in players:
         if len(players[server.id]) > int(pos):
             name = players[server.id].pop(int(pos))
