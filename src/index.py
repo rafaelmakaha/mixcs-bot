@@ -26,6 +26,8 @@ options = {
   '18' : 'Global',
 }
 
+players = {}
+
 @bot.command()
 async def ping(ctx):
     await ctx.send("pong")
@@ -51,11 +53,35 @@ async def patentes(ctx):
         content.append(str(str(item[0] + '  :  ' + str(item[1]))))
     
     embed = discord.Embed(title='Patentes', description=('\n'.join(content)))
-    await ctx.send(embed=embed)   
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def add(ctx, name, weight):
+    server = ctx.guild
+
+    if server.id in players:
+        players[server.id].append((name,weight))
+    else:
+        players[server.id] = [(name,weight)]
+    
+    await ctx.send(name + " adicionado.")
+
+@bot.command()
+async def queue(ctx):
+    server = ctx.guild
+    response = []
+
+    if server.id in players:
+        for index,name in enumerate(players[server.id]):
+            response.append("{}. {}".format(index,name[0]))
+
+        await ctx.send('\n'.join(response))
+    else:
+        await ctx.send("Não há nenhum jogador na fila.")
 
 # Events
 @bot.event
 async def on_ready():
     print("The bot is ready!")
 
-bot.run('')
+bot.run('Njk4OTQ1ODYzMzA5MDY2Mzgx.XpNPMw.hp3_VCNgqxI13JA7NW7mbDc_2Es')
