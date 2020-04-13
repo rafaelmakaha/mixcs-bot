@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import datetime
+from mytoken import Auth
 
 bot = commands.Bot(command_prefix=">", description="This is a helper bot!")
 
@@ -98,4 +99,6 @@ async def remove(ctx, pos):
 async def on_ready():
     print("The bot is ready!")
 
-bot.run('Njk4OTQ1ODYzMzA5MDY2Mzgx.XpNPMw.hp3_VCNgqxI13JA7NW7mbDc_2Es')
+a = Auth()
+
+bot.run(a.TOKEN)
