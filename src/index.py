@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import datetime
+import random
 from mytoken import Auth
 
 bot = commands.Bot(command_prefix=">", description="This is a helper bot!")
@@ -106,6 +107,34 @@ async def clear(ctx):
         await ctx.send("Todos os jogadores foram removidos.")
     else:
         await ctx.send("Não há jogadores na fila.")
+
+@bot.command()
+async def run(ctx):
+    server = ctx.guild
+
+    if server.id in players:# and len(players[server.id]) == 10:
+        jogadores = players[server.id]
+        jogadores = sorted(jogadores, reverse=True, key=lambda elem: elem[1])
+
+        t1 = []
+        t2 = []
+        tier1 = jogadores[:2]
+        tier2 = jogadores[2:6]
+        tier3 = jogadores[6:]
+
+        t1.append(tier1.pop(tier1.index(random.choice(tier1))))
+        t2.append(tier1.pop(tier1.index(random.choice(tier1))))
+
+        while len(t1) < 5 and len(t2) < 5:
+            t1.append(tier2.pop(tier2.index(random.choice(tier2))))
+            t2.append(tier2.pop(tier2.index(random.choice(tier2))))
+            t1.append(tier3.pop(tier3.index(random.choice(tier3))))
+            t2.append(tier3.pop(tier3.index(random.choice(tier3))))
+
+        await ctx.send(t1)
+        await ctx.send(t2)
+    else:
+        await ctx.send("Não há jogadores suficientes para formar os times.")
 
 # Events
 @bot.event
