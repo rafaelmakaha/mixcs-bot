@@ -72,7 +72,7 @@ async def queue(ctx):
     server = ctx.guild
     response = []
 
-    if server.id in players:
+    if server.id in players and len(players[server.id]) > 0:
         for index,name in enumerate(players[server.id]):
             response.append("{}. {}".format(index,name[0]))
 
