@@ -79,8 +79,19 @@ async def queue(ctx):
     else:
         await ctx.send("Não há nenhum jogador na fila.")
 
+@bot.command()
+async def remove(ctx, pos):
+    server = ctx.guild
+    response = ""
 
-            
+    if server.id in players:
+        if len(players[server.id]) > int(pos):
+            name = players[server.id].pop(int(pos))
+            await ctx.send('{} removido da fila.'.format(name[0]))
+        else:
+            await ctx.send("Esta posição não exite na fila.")
+    else:
+        await ctx.send("Não há jogadores na fila.")
 
 # Events
 @bot.event
